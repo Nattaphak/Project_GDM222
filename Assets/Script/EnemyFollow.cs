@@ -25,20 +25,22 @@ public class EnemyFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance = Vector2.Distance(transform.position, player.position);
-
-        if (distance < distanceBetween && distance > shootingRange)
+        if(player != null)
         {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
-        }
+            distance = Vector2.Distance(player.position, transform.position );
 
-        else if (distance <= shootingRange && nextFireTime < Time.time)
-        {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
-            Instantiate(bullet,bulletParent.transform.position, Quaternion.identity);
-            nextFireTime = Time.time + fireRate;
+            if (distance < distanceBetween && distance > shootingRange)
+            {
+                transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
+            }
+            else if (distance <= shootingRange && nextFireTime < Time.time)
+            {
+                transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
+                Instantiate(bullet,bulletParent.transform.position, Quaternion.identity);
+                nextFireTime = Time.time + fireRate;
+            }
         }
-       
+            
     }
 
     private void OnDrawGizmos() 

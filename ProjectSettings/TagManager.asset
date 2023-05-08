@@ -6,6 +6,12 @@ TagManager:
   tags:
   - GameController
   - Bullet
+  - Enemy
+  - PlayerBullet
+  - Wall
+  - Map
+  - Floor
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -22,7 +28,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Ground
   - 
   - 
   - 

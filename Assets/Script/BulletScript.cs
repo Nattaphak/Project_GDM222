@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
 
-    public int damage ;
+    public int damage = (int)(10f * NextStage.damageMultiplier);
 
     GameObject target;
     public float speed;

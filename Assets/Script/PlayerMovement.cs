@@ -5,25 +5,49 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float moveSpeed = 5f; 
+    public float moveSpeed = 5f;
 
-    public Rigidbody2D rb;
-    public Animator animator;
+    Rigidbody2D rb;
 
-    Vector2 movement;
+    Animator animator;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("Horizontal",movement.x);
-        animator.SetFloat("Vertical",movement.y);
-        animator.SetFloat("Speed",movement.sqrMagnitude);
+        Vector2 move = new Vector2(x, y);
+
+        Move(move);
+
+        Animate(move);
+
     }
 
-    void FixedUpdate() 
+    void Move(Vector2 move)
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    void Animate(Vector2 move)
+    {
+        animator.SetFloat("Horizontal", move.x);
+        animator.SetFloat("Vertical", move.y);
+        animator.SetFloat("Speed", move.magnitude);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+    if (collision.gameObject.CompareTag("Wall"))
+    {
+        // ไม่ให้ตัวละครเดินผ่านกำแพง
+        rb.velocity = Vector2.zero;
+    }
     }
 }
